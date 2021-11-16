@@ -6,7 +6,10 @@
 
     nixosConfigurations.installer-iso = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix" ];
+      modules = [
+        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+        ./installer.nix
+      ];
     };
 
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
