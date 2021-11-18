@@ -1,7 +1,15 @@
-{config, pkgs, ...}:
-{
-  fileSystems."/nix" = {
-    fsType = "ext4";
-    encrypted.enable = true;
-    encrypted.blkDev = /dev/sda1;
+{ config, pkgs, ... }: {
+  environment.systemPackages = with pkgs; [ bcachefs-tools ];
+  boot.supportedFilesystems = [ "zfs" "bcachefs" ];
+
+  fileSystems = {
+    "/boot" = {
+      device = /dev/sda1;
+      fsType = "ext2";
+    };
+    "/" = {
+      device = /dev/sda2;
+      fsType = "bcachefs";
+    };
+  };
 }
